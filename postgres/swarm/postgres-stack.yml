@@ -1,0 +1,45 @@
+version: "3"
+
+services:
+
+  master:
+    image: edrudshtein/pgmaster
+    environment:
+      - POSTGRES_USER=postgres
+      - PG_REP_USER=replication
+      - PG_REP_PASSWORD=replication
+    ports:
+      - "5432:5432"
+    hostname: imaging
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    volumes:
+      - 'postgresql_data_master:/var/lib/postgresql/data'
+
+  standby:
+    image: edrudshtein/pgstandby
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    environment:
+      - POSTGRES_USER=postgres
+      - PG_REP_USER=replication
+      - PG_REP_PASSWORD=replication
+      - PG_REP_FROM=imaging
+    ports:
+      - "5432"
+    depends_on:
+      - master
+    volumes:
+      - 'postgresql_data_standby1:/var/lib/postgresql/data'
+
+volumes:
+  postgresql_data_master:
+    driver: local
+  postgresql_data_standby1:
+    driver: local

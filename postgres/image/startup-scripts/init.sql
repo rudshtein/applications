@@ -1,6 +1,6 @@
-CREATE TABLE public.users
+CREATE TABLE public.states
 (
-    id       SERIAL PRIMARY KEY,
-    email    varchar(255),
-    password varchar(255)
+    id serial primary key,
+    symbol text,
+    description text
 );
