@@ -1,4 +1,3 @@
-import sqlalchemy
 from sqlalchemy import create_engine
 from sqlalchemy.engine import Engine
 
@@ -23,8 +22,7 @@ def test_postgres_simple(engine):
 	# Read
 	result_set=engine.execute("SELECT * FROM films")
 	for r in result_set:
-		#		print(r)
-		pass
+		print(r)
 
 	engine.execute("UPDATE films SET title='Some2016Film' WHERE year='2016'")
 	engine.execute("DELETE FROM films WHERE year='2016'")
