@@ -1,1 +1,1 @@
--r postgres/tests/requirements
+-r postgres/tests/requirements.txt

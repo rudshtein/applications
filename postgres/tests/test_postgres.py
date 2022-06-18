@@ -1,13 +1,15 @@
 import sqlalchemy
 from sqlalchemy import create_engine
+from sqlalchemy.engine import Engine
+
 import pytest
 
 
 @pytest.fixture(scope='session')
-def engine():
-	db_string="postgresql://egr:egr@localhost:5432/main"
-	db=create_engine(db_string)
-	return db
+def engine() -> Engine:
+	connection_string="postgresql://postgres:postgres@localhost:5432/temp"
+	result=create_engine(connection_string)
+	return result
 
 
 def test_postgres_simple(engine):
