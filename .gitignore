@@ -27,7 +27,8 @@ profile_default/
 ipython_config.py
 
 
-
+# testing
+.pytest_cache
 
 ### OTHER ##########################################
 
